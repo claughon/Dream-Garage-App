@@ -8,16 +8,20 @@ import {
     Toolbar,
     IconButton,
     Typography,
-    Divider,
     Button,
     CssBaseline, 
-    Box
+    Box,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import { ChevronRight,ChevronLeft } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { theme } from "../../Theme/themes";
-import { DataTable } from '../../components';
+import { DataTable, CarForm } from '../../components';
 
 const drawerWidth = 240;
 
@@ -86,6 +90,7 @@ const myStyles = {
 export const Dashboard = () => {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const [dialogOpen, setDialogOpen] = useState(false);
     
     const handleDrawerOpen = () => {
         setOpen(true)
@@ -94,6 +99,15 @@ export const Dashboard = () => {
     const handleDrawerClose = () => {
         setOpen(false)
     };
+
+    // Handle Dialog Open/Close
+    const handleDialogClickOpen = () => {
+        setDialogOpen(true);
+    }
+
+    const handleDialogClickClose = () => {
+        setDialogOpen(false);
+    }
     
     const itemsList = [
         {
@@ -124,7 +138,17 @@ export const Dashboard = () => {
 
                 </IconButton>
                 <Typography variant="h6" noWrap> Dashboard</Typography>
-                <Button sx={ myStyles.toolbar_button }>Add New Car</Button>
+                <Button sx={ myStyles.toolbar_button } onClick={handleDialogClickOpen}>Create New Vehicle</Button>
+                    <Dialog open={dialogOpen} onClose={handleDialogClickClose} aria-labelledby="form-dialog-titile">
+                        <DialogTitle id="form-dialog-title">Add New Vehicle</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>Add New Vehicle</DialogContentText>
+                                <CarForm />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleDialogClickClose} color="warning">Cancel</Button>
+                        </DialogActions>
+                    </Dialog>
             </Toolbar>
         </AppBar>
         <MUIDrawer

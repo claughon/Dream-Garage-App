@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home, Dashboard, SignIn } from './components';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 import reportWebVitals from './reportWebVitals';
 import './styles.css'
 
@@ -11,13 +13,15 @@ const root = ReactDOM.createRoot(
 
 root.render(
 <React.StrictMode>
-  <Router>
-    <Routes>
-      <Route path='/' element={<Home title  ={'Drone Inventory'}/>} />
-      <Route path='/dashboard' element={<Dashboard />} />
-      <Route path='/signin' element={<SignIn />} />
-    </Routes>
-  </Router>
+  <Provider store= {store}>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Home title  ={'Drone Inventory'}/>} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/signin' element={<SignIn />} />
+      </Routes>
+    </Router>
+  </Provider>
 </React.StrictMode>,
 );
 
